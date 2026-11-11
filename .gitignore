@@ -1,0 +1,13 @@
+.toolchain/
+.gradle/
+.kotlin/
+.idea/
+local.properties
+**/build/
+/captures/
+*.apk
+*.jks
+*.keystore
+*.log
+*.pcap
+*.pcapng
