@@ -2,7 +2,23 @@
 
 MiVR 将 Android 手机模拟成小米 VR / Oculus Go 的 BLE 手柄，支持运动指向、触控板和实体音量减键扳机。当前版本为 1.2.3，最低安装版本为 Android 8.0（API 26）。
 
-在应用的连接页选择连接方式，然后从头显或小米 VR App 的「更换手柄」选择 `OMVR-V190`。通用 BLE 模式要求手机支持 BLE 外设广播。Android 13 起提供系统地址免六位码模式，需要 Root 和兼容的蓝牙配置。固定地址模式已在红米 K60 至尊版和小米 17 Pro 的指定蓝牙库版本上验证。
+## 连接头显
+
+1. 在 MiVR 选择连接方式。
+2. 在小米 VR App 点「更换手柄」。
+3. 回到 MiVR 点「连接头显」，等待应用进入手柄页。
+
+## 为什么需要 Root
+
+通用 BLE 模式无需 Root。手机支持 BLE 外设广播时，可以尝试通过 Android 默认的蓝牙配对流程连接头显。
+
+默认配对有时会要求两端确认同一个六位数字，而小米 VR App 的「更换手柄」流程没有对应的数字确认入口。免六位码模式用 Root 临时加载系统蓝牙配对配置，让手机以「无输入、无显示」的能力参与 BLE 配对，从而使用无需比对数字的 `Just Works`。连接仍可加密，部分手机仍会弹出普通的「配对」确认。启动和停止这个模式会短暂重启手机蓝牙，停止后恢复原配置。[蓝牙配对规范](https://www.bluetooth.com/wp-content/uploads/Files/Specification/HTML/Core-54/out/en/host/security-manager-specification.html)
+
+## 固定地址支持范围
+
+Android 的公开 BLE 广播接口由系统管理广播地址。MiVR 的固定地址模式用 Root 在蓝牙进程中设置模拟手柄的广播地址，让头显在广播重新启动后仍可用原来的地址寻找手柄。[Android BLE 广播接口](https://developer.android.com/reference/android/bluetooth/le/BluetoothLeAdvertiser)
+
+目前适配的是小米 17 Pro 和红米 K60 至尊版上已验证的 `libbluetooth_jni.so` 版本。两款手机的蓝牙库生成地址的实现不同，MiVR 为两者分别做了适配，启动前核对机型和库文件的 SHA-256。系统更新若替换蓝牙库，同一机型也需要重新验证。其他机型可尝试通用 BLE，或在 Android 13 及以上、已 Root 且蓝牙配置兼容时使用「系统地址免六位码」。
 
 ## 构建
 
