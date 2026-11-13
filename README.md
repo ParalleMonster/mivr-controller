@@ -1,5 +1,10 @@
 # MiVR 手柄
 
+
+## ADB 开启流程
+
+小米 VR 一体机开启 ADB 的完整流程、前置条件、验证和排查见 [docs/ADB-开启流程.md](docs/ADB-开启流程.md)。
+
 MiVR 将 Android 手机模拟成小米 VR / Oculus Go 的 BLE 手柄，支持运动指向、触控板和实体音量减键扳机。当前版本为 1.2.3，最低安装版本为 Android 8.0（API 26）。
 
 ## 连接头显
